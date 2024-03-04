@@ -1,8 +1,18 @@
+import 'package:device_preview/device_preview.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_study/next_page.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(
+    DevicePreview(
+      enabled: true, // ここは正しくは!kReleaseModeなど設定してください
+      tools: const [
+        ...DevicePreview.defaultTools,
+        // CustomPlugin(),
+      ],
+      builder: (context) => const MyApp(),
+    ),
+  );
 }
 
 class MyApp extends StatelessWidget {
@@ -16,6 +26,8 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
+      builder: DevicePreview.appBuilder,
+      locale: DevicePreview.locale(context),
       home: const MyHomePage(title: 'Flutter Demo Home Page'),
     );
   }
